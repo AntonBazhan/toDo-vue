@@ -1,18 +1,25 @@
 <template>
 <div>
+
   <h1>Todo app</h1>
   <hr>
+
   <form @submit.prevent="createTodo">
     <input v-model="newTodoText">
     <button>Create todo</button>
   </form>
-    <ul>
+
+    <ul v-if="todos.length">
 <TodoItem
     v-for="(todo,index) of todos"
+    :key="todo.id"
     :todo="todo"
     :index="index"
     @remove="todos.splice(index, 1)"/>
   </ul>
+
+  <div v-else>No todos</div>
+
 </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 
 
-    <li class="item-todo" key="todo.id">
+    <li class="item-todo" >
 
 <span :class="{done:todo.completed}">
       <input  type="checkbox"
