@@ -2,15 +2,16 @@
 <div>
   <h1>Todo app</h1>
   <hr>
-  <form @submit.prevent="">
-    <input >
+  <form @submit.prevent="createTodo">
+    <input v-model="newTodoText">
     <button>Create todo</button>
   </form>
     <ul>
 <TodoItem
     v-for="(todo,index) of todos"
     :todo="todo"
-:index="index"/>
+    :index="index"
+    @remove="todos.splice(index, 1)"/>
   </ul>
 </div>
 </template>
@@ -22,9 +23,25 @@ export default {
   components: {
     TodoItem
   },
+  methods:{
+    createTodo: function () {
+      if (this.newTodoText.trim()) {
+        this.todos.push({
+              id: Date.now(),
+              title: this.newTodoText,
+              completed: false
+            }
+        )
+        this.newTodoText = ''
+
+      }
+    }
+
+  },
 
     data(){
     return{
+      newTodoText: '',
       todos: [
         {
           "userId": 1,

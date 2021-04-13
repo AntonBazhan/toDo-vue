@@ -1,14 +1,23 @@
 <template>
-  <div>
-    <li class="item-todo" >
+
+
+    <li class="item-todo" key="todo.id">
+
 <span :class="{done:todo.completed}">
-      <input  type="checkbox" :checked="todo.completed">
+      <input  type="checkbox"
+              :checked="todo.completed"
+              @change="todo.completed = !todo.completed">
+
       <strong >{{ index + 1}}</strong>
-{{ todo.title }}
+
+              {{ todo.title }}
       </span>
-      <button>&times;</button>
+
+      <button
+          @click="$emit('remove')">
+        &times;</button>
     </li>
-  </div>
+
 
 </template>
 
