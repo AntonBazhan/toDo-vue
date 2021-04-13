@@ -16,6 +16,7 @@
       <button
           @click="$emit('remove')">
         &times;</button>
+
     </li>
 
 

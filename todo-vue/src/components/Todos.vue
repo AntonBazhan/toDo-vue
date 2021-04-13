@@ -4,14 +4,14 @@
   <h1>Todo app</h1>
   <hr>
 
-  <form @submit.prevent="createTodo">
+
     <input v-model="newTodoText">
-    <button>Create todo</button>
-  </form>
+    <button @click="createTodo">Create todo</button>
+
 
     <ul v-if="todos.length">
 <TodoItem
-    v-for="(todo,index) of todos"
+    v-for="(todo,index) in todos"
     :key="todo.id"
     :todo="todo"
     :index="index"
@@ -31,7 +31,7 @@ export default {
     TodoItem
   },
   methods:{
-    createTodo: function () {
+    createTodo() {
       if (this.newTodoText.trim()) {
         this.todos.push({
               id: Date.now(),
@@ -40,10 +40,8 @@ export default {
             }
         )
         this.newTodoText = ''
-
       }
     }
-
   },
 
     data(){
