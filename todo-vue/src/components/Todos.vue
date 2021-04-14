@@ -1,51 +1,45 @@
 <template>
-<div>
+  <div>
 
-  <h1>Todo app</h1>
-  <hr>
+    <h1>Todo app</h1>
+    <hr>
 
 
     <input v-model="newTodoText">
     <button @click="createTodo">Create todo</button>
+    <br>
+    <select v-if="filterTodos.length"
+            v-model="filter">
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+      <option value="not-completed">Not Completed</option>
+    </select>
 
+    <ul v-if="filterTodos.length">
+      <TodoItem
+          v-for="(todo,index) in filterTodos"
+          :key="todo.id"
+          :todo="todo"
+          :index="index"
+          @remove="todos.splice(index, 1)"/>
+    </ul>
 
-    <ul v-if="todos.length">
-<TodoItem
-    v-for="(todo,index) in todos"
-    :key="todo.id"
-    :todo="todo"
-    :index="index"
-    @remove="todos.splice(index, 1)"/>
-  </ul>
+    <div v-else>No todos</div>
 
-  <div v-else>No todos</div>
-
-</div>
+  </div>
 </template>
 
 <script>
 import Vue from "vue";
 import TodoItem from "./TodoItem";
+
 export default {
   components: {
     TodoItem
   },
-  methods:{
-    createTodo() {
-      if (this.newTodoText.trim()) {
-        this.todos.push({
-              id: Date.now(),
-              title: this.newTodoText,
-              completed: false
-            }
-        )
-        this.newTodoText = ''
-      }
-    }
-  },
 
-    data(){
-    return{
+  data() {
+    return {
       newTodoText: '',
       todos: [
         {
@@ -78,16 +72,36 @@ export default {
           "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
           "completed": false
         }
-        ]
+      ],
+      filter: 'all'
     }
-}
+  },
+  computed: {
+    filterTodos() {
+      if (this.filter === 'all') {
+        return this.todos
+      }
+      if (this.filter === 'completed') {
+        return this.todos.filter(t => t.completed)
+      }
+      if (this.filter === 'not-completed') {
+        return this.todos.filter(t => !t.completed)
+      }
+
+    }
+  },
+  methods: {
+    createTodo() {
+      if (this.newTodoText.trim()) {
+        this.todos.push({
+              id: Date.now(),
+              title: this.newTodoText,
+              completed: false
+            }
+        )
+        this.newTodoText = ''
+      }
+    }
+  }
 }
 </script>
-
-
-<style scoped>
-.list-todo{
-
-}
-
-</style>
