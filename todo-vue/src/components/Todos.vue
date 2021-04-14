@@ -78,16 +78,14 @@ export default {
   },
   computed: {
     filterTodos() {
-      if (this.filter === 'all') {
-        return this.todos
+      switch (this.filter) {
+        case "all":
+          return this.todos;
+        case "completed":
+          return this.todos.filter(t => t.completed)
+        case "not-completed":
+          return this.todos.filter(t => !t.completed)
       }
-      if (this.filter === 'completed') {
-        return this.todos.filter(t => t.completed)
-      }
-      if (this.filter === 'not-completed') {
-        return this.todos.filter(t => !t.completed)
-      }
-
     }
   },
   methods: {
