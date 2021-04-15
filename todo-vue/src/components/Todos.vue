@@ -30,64 +30,61 @@
 </template>
 
 <script>
-import Vue from "vue";
-import TodoItem from "./TodoItem";
 
+import TodoItem from "./TodoItem";
+import {mapActions} from"vuex";
 export default {
   components: {
     TodoItem
+  },
+
+  async created() {
+    await this.getTodo();
+
   },
 
   data() {
     return {
       newTodoText: '',
       todos: [
-        {
-          "userId": 1,
-          "id": 1,
-          "title": "delectus aut autem",
-          "completed": false
-        },
-        {
-          "userId": 1,
-          "id": 2,
-          "title": "quis ut nam facilis et officia qui",
-          "completed": false
-        },
-        {
-          "userId": 1,
-          "id": 3,
-          "title": "fugiat veniam minus",
-          "completed": false
-        },
-        {
-          "userId": 1,
-          "id": 4,
-          "title": "et porro tempora",
-          "completed": true
-        },
-        {
-          "userId": 1,
-          "id": 5,
-          "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-          "completed": false
-        }
+        // {
+        //   "userId": 1,
+        //   "id": 1,
+        //   "title": "delectus aut autem",
+        //   "completed": false
+        // },
+        // {
+        //   "userId": 1,
+        //   "id": 2,
+        //   "title": "quis ut nam facilis et officia qui",
+        //   "completed": false
+        // },
+        // {
+        //   "userId": 1,
+        //   "id": 3,
+        //   "title": "fugiat veniam minus",
+        //   "completed": false
+        // },
+        // {
+        //   "userId": 1,
+        //   "id": 4,
+        //   "title": "et porro tempora",
+        //   "completed": true
+        // },
+        // {
+        //   "userId": 1,
+        //   "id": 5,
+        //   "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+        //   "completed": false
+        // }
       ],
       filter: 'all'
     }
   },
-  computed: {
-    filterTodos() {
-      switch (this.filter) {
-        case "all":
-          return this.todos;
-        case "completed":
-          return this.todos.filter(t => t.completed)
-        case "not-completed":
-          return this.todos.filter(t => !t.completed)
-      }
-    }
-  },
+
+
+
+
   methods: {
     createTodo() {
       if (this.newTodoText.trim()) {
@@ -99,7 +96,20 @@ export default {
         )
         this.newTodoText = ''
       }
-    }
+    },
+    filterTodos() {
+      switch (this.filter) {
+        case "all":
+          return this.todos;
+        case "completed":
+          return this.todos.filter(t => t.completed)
+        case "not-completed":
+          return this.todos.filter(t => !t.completed)
+      }
+    },
+    ...mapActions('todo', {
+      getTodo: 'fetchTodos'
+    })
   }
 }
 </script>
