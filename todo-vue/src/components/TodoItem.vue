@@ -1,24 +1,19 @@
 <template>
+  <li class="item-todo">
+    <span :class="{ done: todo.completed }">
+      <input
+        type="checkbox"
+        :checked="todo.completed"
+        @change="todo.completed = !todo.completed"
+      />
 
+      <strong>{{ index + 1 }}</strong>
 
-    <li class="item-todo" >
-<span :class="{done:todo.completed}">
-      <input  type="checkbox"
-              :checked="todo.completed"
-              @change="todo.completed = !todo.completed">
+      {{ todo.title }}
+    </span>
 
-      <strong >{{ index + 1}}</strong>
-
-              {{ todo.title }}
-      </span>
-
-      <button
-          @click="$emit('remove')">
-        &times;</button>
-
-    </li>
-
-
+    <button @click="$emit('remove')">&times;</button>
+  </li>
 </template>
 
 <script>
@@ -27,15 +22,14 @@ export default {
     todo: {
       id: Number,
       title: String,
-      completed: Boolean
+      completed: Boolean,
     },
-    index:Number
-  }
-}
-
+    index: Number,
+  },
+};
 </script>
 <style scoped>
-.item-todo{
+.item-todo {
   list-style: none;
   margin: 10px;
   border: 1px solid black;
@@ -43,7 +37,7 @@ export default {
   justify-content: space-between;
 }
 
-.done{
+.done {
   text-decoration: line-through;
 }
 </style>

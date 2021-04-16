@@ -2,8 +2,6 @@
   <div class="loader">Loading...</div>
 </template>
 
-
-
 <style scoped>
 .loader {
   font-size: 10px;
@@ -13,11 +11,15 @@
   height: 11em;
   border-radius: 50%;
   background: #36498c;
-  background: -moz-linear-gradient(left, #36498c 10%, rgba(54,73,140, 0) 42%);
-  background: -webkit-linear-gradient(left, #36498c 10%, rgba(54,73,140, 0) 42%);
-  background: -o-linear-gradient(left, #36498c 10%, rgba(54,73,140, 0) 42%);
-  background: -ms-linear-gradient(left, #36498c 10%, rgba(54,73,140, 0) 42%);
-  background: linear-gradient(to right, #36498c 10%, rgba(54,73,140, 0) 42%);
+  background: -moz-linear-gradient(left, #36498c 10%, rgba(54, 73, 140, 0) 42%);
+  background: -webkit-linear-gradient(
+    left,
+    #36498c 10%,
+    rgba(54, 73, 140, 0) 42%
+  );
+  background: -o-linear-gradient(left, #36498c 10%, rgba(54, 73, 140, 0) 42%);
+  background: -ms-linear-gradient(left, #36498c 10%, rgba(54, 73, 140, 0) 42%);
+  background: linear-gradient(to right, #36498c 10%, rgba(54, 73, 140, 0) 42%);
   position: relative;
   -webkit-animation: load3 1.4s infinite linear;
   animation: load3 1.4s infinite linear;
@@ -33,14 +35,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  content: '';
+  content: "";
 }
 .loader:after {
   background: #e5eaf6;
   width: 75%;
   height: 75%;
   border-radius: 50%;
-  content: '';
+  content: "";
   margin: auto;
   position: absolute;
   top: 0;
