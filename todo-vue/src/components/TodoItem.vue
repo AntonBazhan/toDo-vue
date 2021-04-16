@@ -2,7 +2,6 @@
 
 
     <li class="item-todo" >
-
 <span :class="{done:todo.completed}">
       <input  type="checkbox"
               :checked="todo.completed"
