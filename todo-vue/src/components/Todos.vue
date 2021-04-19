@@ -41,6 +41,8 @@ export default {
     await this.getTodo();
   },
 
+
+
   data() {
     return {
       newTodoText: "",
@@ -51,18 +53,21 @@ export default {
     filterTodos() {
       switch (this.filter) {
         case "all":
-          return this.todos;
+          return this.allTodos;
 
         case "completed":
-          return this.todos.filter((t) => t.completed);
+          return this.completedTodos;
 
         case "not-completed":
-          return this.todos.filter((t) => !t.completed);
+          return this.notCompletedTodos;
       }
     },
     ...mapGetters({
       todos: "todo/allTodos",
       stopSpinner: "todo/stopSpinner",
+      allTodos: 'todo/allTodos',
+      completedTodos: 'todo/completedTodos',
+      notCompletedTodos: 'todo/notCompletedTodos'
     }),
   },
 
