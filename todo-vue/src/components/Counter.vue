@@ -2,7 +2,7 @@
   <div>
     <span>Лічильник кліків — {{ count }}</span>
     <br>
-    <button v-on:click="count++">Kлік</button>
+    <button @click="count++">Kлік</button>
   </div>
 
 
@@ -16,7 +16,7 @@ export default {
     }
   },
   watch: {
-    count: function (count) {
+    count(count) {
       return console.log('натиснуто на кнопку',count)
     },
   }
