@@ -26,9 +26,9 @@ export default {
     },
     index: Number,
   },
-  beforeDestroy() {
-    console.log('3253252');
-  }
+  // beforeDestroy() {
+  //   console.log('3253252');
+  // }
 };
 </script>
 <style scoped>

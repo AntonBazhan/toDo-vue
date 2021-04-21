@@ -2,7 +2,9 @@
   <div>
     <h1>Todo app</h1>
     <hr />
-
+<Counter/>
+    <br>
+    <hr />
     <input v-model="newTodoText" />
     <button @click="createTodo">Create todo</button>
     <br />
@@ -30,11 +32,13 @@
 import TodoItem from "./TodoItem";
 import { mapActions, mapGetters } from "vuex";
 import Spinner from "./Spinner";
+import Counter from "./Counter";
 
 export default {
   components: {
     Spinner,
     TodoItem,
+    Counter
   },
 
   async created() {
@@ -51,23 +55,24 @@ export default {
   },
   computed: {
     filterTodos() {
-      switch (this.filter) {
-        case "all":
-          return this.allTodos;
+      // let b = {
+      //   all: this.allTodos,
+      //   completed: this.completedTodos,
+      //   notCompleted: this.notCompletedTodos
+      // }
 
-        case "completed":
-          return this.completedTodos;
+return this[this.filter];
 
-        case "not-completed":
-          return this.notCompletedTodos;
-      }
+
+
+
     },
     ...mapGetters({
       todos: "todo/allTodos",
       stopSpinner: "todo/stopSpinner",
-      allTodos: 'todo/allTodos',
-      completedTodos: 'todo/completedTodos',
-      notCompletedTodos: 'todo/notCompletedTodos'
+      all: 'todo/allTodos',
+      completed: 'todo/completedTodos',
+      'not-completed': 'todo/notCompletedTodos'
     }),
   },
 
