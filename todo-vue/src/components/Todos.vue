@@ -1,44 +1,40 @@
 <template>
   <div>
     <h1>Todo app</h1>
-    <hr />
-<Counter/>
+    <hr/>
+    <Counter/>
     <br>
-    <hr />
-    <input v-model="newTodoText" />
+    <hr/>
+    <input v-model="newTodoText"/>
     <button @click="createTodo">Create todo</button>
-    <br />
-    <select  @change="filterTodo">
+    <br/>
+    <select v-model="filter" @change="filterTodo">
       <option value="all">All</option>
       <option value="completed">Completed</option>
       <option value="not-completed">Not Completed</option>
     </select>
-    <Spinner v-if="stopSpinner" />
-    <ul >
+    <Spinner v-if="stopSpinner"/>
+    <ul>
       <TodoItem
-        v-for="(todo, index) in todos"
-        :key="todo.id"
-        :todo="todo"
-        :index="index"
-        @remove="todos.splice(index, 1)"
+          v-for="(todo, index) in todos"
+          :key="todo.id"
+          :todo="todo"
+          :index="index"
+          @remove="todos.splice(index, 1)"
+          @completed="completedTodo"
       />
     </ul>
 
-<!--    <div v-else>No todos</div>-->
+    <!--    <div v-else>No todos</div>-->
   </div>
 </template>
 
 <script>
 import TodoItem from "./TodoItem";
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Spinner from "./Spinner";
 import Counter from "./Counter";
 
-// const router = new VueRouter({
-//   routes: [
-//     { path: '/',  props: (route) => ({ query: route.query.q }) }
-//   ]
-// })
 
 export default {
   components: {
@@ -47,39 +43,35 @@ export default {
     Counter
   },
 
-  // async created() {
-  //   await this.getTodo();
-  // },
+  created() {
+    this.todos = this[this.$route.query.filter]
 
-
+  },
 
   data() {
     return {
       newTodoText: "",
-      filter: "all",
+      todos: [],
+      filter: this.$route.query.filter
+
     };
   },
+
+  watch: {
+    '$route.query'(query) {
+      this.todos = this[query.filter];
+    }
+  },
+
+
   computed: {
-//     filterTodos() {
-//       // let b = {
-//       //   all: this.allTodos,
-//       //   completed: this.completedTodos,
-//       //   notCompleted: this.notCompletedTodos
-//       // }
-// return this[this.filter];
-    //
-    //
-    //
-    // },
-
-
     ...mapGetters({
-      todos: "todo/allTodos",
+      all: "todo/allTodos",
       stopSpinner: "todo/stopSpinner",
-      // all: 'todo/allTodos',
-      // completed: 'todo/completedTodos',
-      // 'not-completed': 'todo/notCompletedTodos'
+      completed: 'todo/completedTodos',
+      'not-completed': 'todo/notCompletedTodos'
     }),
+
   },
 
   methods: {
@@ -93,20 +85,22 @@ export default {
         this.newTodoText = "";
       }
     },
-    filterTodo(value){
-      console.log(value.target.value)
-      if (value.target.value === 'completed'){
-        // todos.filter((t) => t.completed
-        console.log('5646567')
-      }
-      if(value.target.value === 'not-completed'){
-        // todos.filter((t) => !t.completed
-        console.log('11111')
-      }
+    filterTodo(value) {
+
+      this.$router.push({query: {filter: value.target.value}})
+
     },
-    ...mapActions("todo", {
-      getTodo: "fetchTodos",
+    completedTodo(todo) {
+      this.changeCompleted(
+          this.all.map(t =>
+              t.id === todo.id ? todo : t
+          ));
+      this.todos = this[this.$route.query.filter];
+    },
+    ...mapActions('todo', {
+      changeCompleted: "completedTodo",
     }),
   },
-};
+}
+
 </script>

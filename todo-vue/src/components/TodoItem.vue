@@ -4,7 +4,7 @@
       <input
         type="checkbox"
         :checked="todo.completed"
-        @change="todo.completed = !todo.completed"
+        @change="$emit('completed', {...todo,completed:!todo.completed})"
       />
 
       <strong>{{ index + 1 }}</strong>
@@ -26,9 +26,6 @@ export default {
     },
     index: Number,
   },
-  // beforeDestroy() {
-  //   console.log('3253252');
-  // }
 };
 </script>
 <style scoped>
